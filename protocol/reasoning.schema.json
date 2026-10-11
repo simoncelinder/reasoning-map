@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/simoncelinder/reasoning-map/main/protocol/reasoning.schema.json",
+  "title": "Reasoning map: reasoning profile",
+  "description": "What kind of inference each arrow is, what it rests on, and what would refute each claim. Adds fields to core; requires none.",
+  "type": "object",
+  "properties": {
+    "nodes": {"type": "array", "items": {"type": "object", "properties": {
+      "for": {"type": "array", "items": {"type": "string"}, "description": "Evidence for the claim. One item per piece of evidence."},
+      "against": {"type": "array", "items": {"type": "string"}, "description": "Evidence against the claim."},
+      "falsifier": {"type": "string", "description": "What would change my mind: the observation that would show the claim is wrong."},
+      "measure": {"type": "string", "description": "For a claim true by construction (a definition or an identity), which cannot be wrong, only big or small: what to measure instead."},
+      "weight": {"type": "string", "description": "Free text: how much this drives the outcome."},
+      "confidence": {"type": "string", "description": "Free text on a node. Arrows use the graded field in the grades profile."}
+    }}},
+    "edges": {"type": "array", "items": {"type": "object", "properties": {
+      "inference": {"enum": ["deductive", "inductive", "abductive", "causal"], "description": "deductive: follows from the premises in 'given'. inductive: generalised from cases. abductive: the best explanation of what is observed. causal: an asserted mechanism with no further support given."},
+      "given": {"type": "string", "description": "The premises of a deductive link. A deduction is only as good as these."},
+      "combines": {"enum": ["add", "multiply"], "description": "How this arrow combines with the other arrows into the same box."},
+      "note": {"type": "string", "description": "Why the link holds, or why it is weaker than it looks."}
+    }}}
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/simoncelinder/reasoning-map/main/protocol/core.schema.json",
+  "title": "Reasoning map: core profile",
+  "description": "Boxes, a breakdown, and arrows. Enough on its own: a map with only these fields is complete. Other profiles only add fields, and a reader that does not know a field ignores it. Rules JSON Schema cannot express (references resolve, no parent cycles, the first node is the root) are in protocol/README.md.",
+  "type": "object",
+  "required": ["id", "title", "nodes", "edges"],
+  "properties": {
+    "id": {"type": "string", "description": "Short, stable identifier for the map."},
+    "title": {"type": "string"},
+    "core": {"type": "string", "description": "The central claim of the map in one or two sentences."},
+    "domain": {"type": "string"},
+    "status": {"type": "string"},
+    "profiles": {"type": "array", "items": {"enum": ["core", "reasoning", "grades"]}, "description": "Which profiles the map uses. core is implied."},
+    "nodes": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["id", "label"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1},
+          "parent": {"type": "string", "description": "The box this one sits inside. Omitted: it sits under the root (the first node)."},
+          "sub": {"type": "string", "description": "Second line on the box."},
+          "text": {"type": "string"},
+          "kind": {"type": "string", "description": "A rendering hint only: claim, group, part, driver, mechanism, condition, outcome, failure, demoted. Unknown kinds draw as a plain box."},
+          "ref": {"type": "string", "description": "Where this comes from: a section of a source text, a URL."}
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["from", "to"],
+        "properties": {
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+          "label": {"type": "string"},
+          "type": {"enum": ["failure", "dampens", "weak"], "description": "A rendering hint only: failure (a path to failure), dampens (reduces its target), weak (a thin or speculative link)."}
+        }
+      }
+    }
+  }
+}

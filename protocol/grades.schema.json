@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/simoncelinder/reasoning-map/main/protocol/grades.schema.json",
+  "title": "Reasoning map: grades profile",
+  "description": "Two separate grades per arrow. strength: if the link is real, how much it moves its target (the size of the coefficient). confidence: how sure we are the link exists as stated (the p-value side). They come apart where it matters most: large if true but unproven is the tail-risk shape. A deductive link's confidence is its premises' confidence, never more. A definition or identity gets a confidence and no strength, because it moves nothing on its own.",
+  "type": "object",
+  "properties": {
+    "edges": {"type": "array", "items": {"type": "object", "properties": {
+      "strength": {"enum": ["small", "medium", "large"]},
+      "confidence": {"enum": ["established", "well-supported", "suggestive", "contested", "folklore"], "description": "established: replicated, survives controls. well-supported: good identification, limited era or sample. suggestive: directionally indicated, effect size unstable. contested: serious people disagree; name both sides. folklore: circulates widely, no defensible source."}
+    }}}
+  }
+}

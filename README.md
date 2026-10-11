@@ -4,6 +4,8 @@ A structured format for exploring reasoning: claims, the links between them, and
 
 A reasoning map is a plain JSON file. Claims are boxes that can be broken down into smaller boxes. Arrows between them say what kind of reasoning connects them (deductive, inductive, abductive or causal), how much the link matters if it is true, and how sure you are that it is. Claims that carry weight say what would change your mind.
 
+![The worked example in the viewer](viewer/screenshot.png)
+
 The point is not a prettier diagram. It is a format strict enough that whoever fills it in, a person or a language model, has to commit: which kind of inference, resting on what, and what would refute it.
 
 ## The protocol
@@ -25,6 +27,11 @@ The protocol is JSON and JSON Schema; any language can read, write and validate 
 | Validator | |
 | :-- | :-- |
 | [Python](validators/python/) | `python3 validators/python/reasoning_map.py my-map.json`. Standard library only |
+
+## Examples and viewer
+
+- **[examples/](examples/)**: `template.json`, every field once with placeholders, to copy, and one worked example: what ended the dinosaurs. It needs every part of the format, from a deduction that is still uncertain to a piece of folklore.
+- **[viewer/](viewer/)**: one example renderer, a single HTML file. Run `python3 -m http.server` in the repo root and open http://localhost:8000/viewer/. It is fully detached from the format: any other renderer can read the same files.
 
 ## What is not here
 

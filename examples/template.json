@@ -1,0 +1,23 @@
+{
+ "id": "template",
+ "title": "Template: every field once",
+ "core": "One or two sentences: the central claim of the map.",
+ "profiles": ["reasoning", "grades"],
+ "nodes": [
+  {"id": "root", "label": "Central claim", "kind": "claim", "text": "The first node is the root: the map itself. A node without a parent sits under it."},
+  {"id": "a", "label": "Cause A", "sub": "A second line", "kind": "driver", "weight": "High", "for": ["Evidence 1", "Evidence 2"], "against": ["Evidence 3"], "falsifier": "The observation that would show A does not drive B."},
+  {"id": "c", "label": "Group C", "kind": "group"},
+  {"id": "c1", "label": "Part C1", "parent": "c", "kind": "part", "for": ["Case 1", "Case 2", "Case 3"], "against": ["Counter-case 1"]},
+  {"id": "c2", "label": "Part C2", "parent": "c", "kind": "mechanism"},
+  {"id": "d", "label": "Definition D", "kind": "condition", "weight": "Medium", "measure": "D is true by construction, so it cannot be wrong, only big or small: what to measure to see how big."},
+  {"id": "e", "label": "Damper E", "kind": "condition"},
+  {"id": "b", "label": "Outcome B", "kind": "outcome"}
+ ],
+ "edges": [
+  {"from": "a", "to": "b", "label": "deductive", "inference": "deductive", "given": "Premise 1; premise 2.", "strength": "large", "confidence": "well-supported", "note": "A deduction's confidence is its premises' confidence."},
+  {"from": "c1", "to": "c2", "label": "inductive", "inference": "inductive", "strength": "medium", "confidence": "suggestive"},
+  {"from": "c2", "to": "b", "label": "abductive", "inference": "abductive", "combines": "multiply", "strength": "large", "confidence": "contested", "note": "The rival explanations go here."},
+  {"from": "d", "to": "b", "label": "identity", "inference": "deductive", "given": "The definition of D.", "confidence": "established", "note": "An identity gets a confidence and no strength."},
+  {"from": "e", "to": "b", "label": "dampens", "type": "dampens", "inference": "causal", "strength": "small", "confidence": "folklore"}
+ ]
+}

@@ -15,16 +15,18 @@ If you are an agent working in a session that also has private repositories open
 
 If a task would put real reasoning into this repo, stop and say so instead of doing it.
 
-Examples, fixtures and demos use **abstract placeholders** (`a`, `b`, `Driver A`) or a **plainly invented** problem nobody has a stake in. When unsure whether something counts as real reasoning, treat it as real and leave it out.
+Examples, fixtures and demos use **abstract placeholders** (`a`, `b`, `Driver A`), a **plainly invented** problem, or a **well-known public question nobody here has a stake in** (like the dinosaur example: settled-enough science, no politics, no business, nothing personal). Never a topic someone in the session is actually thinking through. When unsure whether something counts as real reasoning, treat it as real and leave it out.
 
 ## What belongs here
 
 ```
 protocol/      the spec: JSON Schema profiles + protocol/README.md (rules, meanings)
 validators/    optional validators, one folder per language
+examples/      template.json (placeholders) and one worked example
+viewer/        one example renderer: a single HTML file that reads map files
 ```
 
-Planned, each a separate client of the protocol: a renderer, one invented worked example, a prompt for thinking in the format, a mocked research run.
+Planned, each a separate client of the protocol: a prompt for thinking in the format, a mocked research run on the example.
 
 ## The protocol is language-agnostic
 
@@ -42,5 +44,6 @@ Planned, each a separate client of the protocol: a renderer, one invented worked
 ## Conventions
 
 - Validator tests use abstract fixtures only (see validators/python/test_reasoning_map.py).
-- Run `python3 -m unittest discover validators/python` before committing a change to the protocol or the validator.
+- Run `python3 -m unittest discover validators/python` before committing a change to the protocol or the validator, and validate the examples (`python3 validators/python/reasoning_map.py examples/*.json`).
+- The viewer never gets a feature that requires a field the protocol does not define. If it needs one, the protocol changes first.
 - Do not commit build output, packages or downloaded files (`*.whl`, `dist/`, caches).

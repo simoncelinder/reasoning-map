@@ -1,0 +1,28 @@
+{
+ "id": "dinosaur-extinction",
+ "title": "What ended the dinosaurs",
+ "core": "An asteroid impact was the main cause of the end-Cretaceous mass extinction. Whether Deccan volcanism had already weakened ecosystems, and so made the blow worse, is still contested.",
+ "domain": "Earth history",
+ "status": "Example map. Illustrates the format; the grades are a reasonable reading of the literature, not a scientific verdict.",
+ "profiles": ["reasoning", "grades"],
+ "nodes": [
+  {"id": "root", "label": "An asteroid impact ended the dinosaurs", "kind": "claim", "text": "Possibly made worse by volcanism that had already weakened ecosystems."},
+  {"id": "imp", "label": "Asteroid impact", "kind": "group"},
+  {"id": "impact", "label": "Chicxulub impact", "sub": "about 10 km asteroid", "parent": "imp", "kind": "driver", "weight": "High", "for": ["A layer enriched in iridium, rare in Earth's crust but common in asteroids, sits at the boundary at sites worldwide (Alvarez et al., 1980).", "Shocked quartz and glass spherules in the same layer, which form only under impact pressures.", "The Chicxulub crater, about 180 km wide, is dated to within tens of thousands of years of the boundary."], "against": ["Large eruptions can also bring iridium up from the mantle, so the layer alone does not rule out volcanism."], "falsifier": "Precise dating that puts the extinction clearly before or after the impact, rather than at it."},
+  {"id": "winter", "label": "Years of darkness and cold", "sub": "impact winter", "parent": "imp", "kind": "mechanism", "weight": "High", "for": ["Soot from wildfires is found in boundary clay.", "Climate models of the aerosol release give years of darkness and several degrees of cooling."], "against": ["Estimates of how much soot and sulfur reached the upper atmosphere vary several-fold, and so does the length of the darkness."], "falsifier": "Boundary sediments showing too little soot and sulfur to darken the sky for more than a few months."},
+  {"id": "collapse", "label": "Food webs collapse", "sub": "photosynthesis stops", "parent": "imp", "kind": "mechanism", "for": ["Marine plankton, and the animals that fed on them, were hit hardest.", "Survivors were mostly small animals living on detritus, seeds or in fresh water, none of which need fresh plant growth."]},
+  {"id": "volc", "label": "Deccan volcanism", "kind": "group"},
+  {"id": "deccan", "label": "Deccan Traps eruptions", "sub": "western India", "parent": "volc", "kind": "driver", "for": ["One of the largest volcanic episodes in Earth's history, with pulses dated to the last few hundred thousand years of the Cretaceous."], "against": ["Two leading dating studies (2019) disagree on whether the largest pulses came before or after the impact."]},
+  {"id": "stress", "label": "Ecosystems already weakened", "sub": "before the impact", "parent": "volc", "kind": "condition", "weight": "Medium if true", "for": ["Some records show a few degrees of warming in the last few hundred thousand years before the boundary."], "against": ["Many fossil records show no decline before the boundary.", "Sparse fossils make a sudden extinction look gradual (the Signor-Lipps effect), so apparent early declines can be an artefact."], "falsifier": "High-resolution fossil records from several regions showing diversity steady right up to the boundary layer."},
+  {"id": "eggs", "label": "Mammals ate the dinosaurs' eggs", "sub": "a popular idea", "kind": "demoted", "against": ["Dinosaurs and egg-eating mammals lived side by side for over 100 million years before the extinction."]},
+  {"id": "kpg", "label": "End-Cretaceous mass extinction", "sub": "66 million years ago", "kind": "outcome", "text": "About three quarters of species disappeared, including every dinosaur except birds."}
+ ],
+ "edges": [
+  {"from": "impact", "to": "winter", "label": "soot and sulfur fill the sky", "inference": "deductive", "given": "The impact released soot and sulfate in the amounts the models assume, and that much aerosol blocks most sunlight.", "strength": "large", "confidence": "suggestive", "note": "Valid if the premise holds. The premise is the uncertain part, so the arrow is faint despite being a deduction."},
+  {"from": "winter", "to": "collapse", "label": "no light for plants or plankton", "inference": "deductive", "given": "The darkness lasted longer than most plankton and plants survive without light.", "strength": "large", "confidence": "well-supported"},
+  {"from": "collapse", "to": "kpg", "label": "food chains fail", "inference": "abductive", "strength": "large", "confidence": "well-supported", "note": "The best explanation of who survived: animals that did not depend on fresh plant growth. A slow decline would not favour them this sharply."},
+  {"from": "deccan", "to": "stress", "label": "warming and acid pulses", "inference": "inductive", "strength": "large", "confidence": "contested", "note": "Generalised from other mass extinctions that line up with huge eruptions (end-Permian, end-Triassic). But several large eruptions caused no mass extinction."},
+  {"from": "stress", "to": "kpg", "label": "made the blow worse", "inference": "causal", "combines": "multiply", "strength": "medium", "confidence": "contested", "note": "If real, it amplified the impact rather than causing a separate extinction."},
+  {"from": "eggs", "to": "kpg", "label": "wiped them out", "type": "weak", "inference": "causal", "strength": "small", "confidence": "folklore"}
+ ]
+}

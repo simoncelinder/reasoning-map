@@ -59,3 +59,7 @@ Anyone's actual reasoning. This repo holds the format and tools for it, nothing 
 ## Status
 
 Early (0.x). Fields may still change; a change that breaks existing maps will be called out.
+
+## License
+
+[MIT](LICENSE). Use the format, the validators, the viewer and the skills however you like.

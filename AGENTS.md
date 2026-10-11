@@ -24,9 +24,12 @@ protocol/      the spec: JSON Schema profiles + protocol/README.md (rules, meani
 validators/    optional validators, one folder per language
 examples/      template.json (placeholders) and one worked example
 viewer/        one example renderer: a single HTML file that reads map files
+skills/        agent skills for users to copy into their own setup
 ```
 
-Planned, each a separate client of the protocol: a prompt for thinking in the format, a mocked research run on the example.
+`skills/` is deliberately not `.claude/skills/` or `.agents/skills/`: those would load into every agent working on this repo, and an agent here must never build a real map. Do not move them, and do not follow them while working on this repo; edit them as documents.
+
+Planned: a mocked research run on the example.
 
 ## The protocol is language-agnostic
 

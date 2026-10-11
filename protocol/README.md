@@ -4,11 +4,11 @@ A reasoning map is one JSON file. These three JSON Schema files and the rules be
 
 | Profile | Schema | Adds | Use it when |
 | :-- | :-- | :-- | :-- |
-| core | [core.schema.json](core.schema.json) | boxes (`id`, `label`, `parent`, `sub`, `text`, `kind`, `ref`) and arrows (`from`, `to`, `label`, `type`). Only `id` and `label`, `from` and `to` are required | Always. A map with only these fields is complete |
+| core | [core.schema.json](core.schema.json) | the map (`id`, `title`, `core`, `domain`, `status`, `profiles`), boxes (`id`, `label`, `parent`, `sub`, `text`, `kind`, `ref`) and arrows (`from`, `to`, `label`, `type`). Only the map's `id` and `title`, a box's `id` and `label`, and an arrow's `from` and `to` are required | Always. A map with only these fields is complete |
 | reasoning | [reasoning.schema.json](reasoning.schema.json) | on a box: evidence `for` / `against`, `falsifier`, `measure`, `weight`. On an arrow: `inference` (deductive, inductive, abductive, causal), `given`, `combines` (add or multiply), `note` | The map makes claims worth testing |
 | grades | [grades.schema.json](grades.schema.json) | on an arrow: `strength` (small, medium, large) and `confidence` (established, well-supported, suggestive, contested, folklore) | You want to show where the weight sits |
 
-A map lists the profiles it uses in `profiles`; `core` is implied. **Profiles only add fields, never require new ones on core**, so a reader that knows only core still opens a fully graded map and ignores what it does not know.
+A map lists the profiles it uses in `profiles`; `core` is implied. **Profiles only add fields, never require new ones on core**, so a reader that knows only core still opens a fully graded map and ignores what it does not know. The same goes for a profile name a reader does not know: it is ignored, not rejected.
 
 ## Shape
 
@@ -22,16 +22,17 @@ A map lists the profiles it uses in `profiles`; `core` is implied. **Profiles on
   {"id": "a", "label": "Driver A", "falsifier": "What would show A does not matter."},
   {"id": "b", "label": "Driver B"},
   {"id": "a1", "label": "A part of A", "parent": "a",
-   "for": ["Evidence for."], "against": ["Evidence against."]}
+   "for": ["Evidence for."], "against": ["Evidence against."]},
+  {"id": "out", "label": "The outcome"}
  ],
  "edges": [
-  {"from": "a", "to": "root", "inference": "inductive", "strength": "large", "confidence": "suggestive"},
-  {"from": "b", "to": "root", "inference": "deductive", "given": "The premises.", "confidence": "well-supported"}
+  {"from": "a", "to": "out", "inference": "inductive", "strength": "large", "confidence": "suggestive"},
+  {"from": "b", "to": "out", "inference": "deductive", "given": "The premises.", "confidence": "well-supported"}
  ]
 }
 ```
 
-- **The first node is the root.** A node without `parent` sits under it.
+- **The first node is the root**: the central claim, which the whole map is about. A node without `parent` sits under it. Give the outcome its own box rather than pointing arrows at the root; a renderer may treat the root as the canvas.
 - **`parent` is the breakdown, edges are the reasoning.** The breakdown is a tree, so it can be checked for gaps and overlaps. The reasoning is a graph, because real causes have feedback and the same variable in two places.
 - **Edges can be written at any level.** A renderer that hides a node draws its edges from the nearest visible box that contains it.
 - **Evidence sits on the claim it bears on**, never floating.
@@ -55,7 +56,7 @@ They come apart where it matters most: *large if true, but unproven* is the shap
 Two grading rules:
 
 1. **A deductive arrow's confidence is its premises' confidence, never more.** Valid logic on a shaky premise is still shaky. This keeps "deductive" from reading as "certain".
-2. **A definition or identity gets a confidence and no strength.** It moves nothing on its own. The box it points to gets a `measure` instead of a `falsifier`, since it cannot be wrong, only big or small.
+2. **A definition or identity gets a confidence and no strength.** It moves nothing on its own. The box that is true by construction gets a `measure` instead of a `falsifier`, since it cannot be wrong, only big or small.
 
 | `confidence` | Means |
 | :-- | :-- |

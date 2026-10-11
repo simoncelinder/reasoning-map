@@ -26,6 +26,9 @@ class Valid(unittest.TestCase):
         m = {"id": "t", "title": "T", "nodes": [{"id": "r", "label": "R"}], "edges": []}
         self.assertEqual(check(m), ([], []))
 
+    def test_unknown_profile_name_is_ignored(self):
+        self.assertEqual(run(lambda m: m["profiles"].append("future")), ([], []))
+
 
 class Errors(unittest.TestCase):
     def assertError(self, change, text):

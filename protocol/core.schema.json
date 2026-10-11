@@ -11,7 +11,7 @@
     "core": {"type": "string", "description": "The central claim of the map in one or two sentences."},
     "domain": {"type": "string"},
     "status": {"type": "string"},
-    "profiles": {"type": "array", "items": {"enum": ["core", "reasoning", "grades"]}, "description": "Which profiles the map uses. core is implied."},
+    "profiles": {"type": "array", "items": {"type": "string"}, "description": "Which profiles the map uses: reasoning, grades. core is implied. A name a reader does not know is ignored, so a newer profile never makes a map unreadable to an older tool."},
     "nodes": {
       "type": "array", "minItems": 1,
       "items": {

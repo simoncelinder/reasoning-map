@@ -476,6 +476,8 @@ function describe() { // the screen as plain text, for a language model
 function addMap(m, src) {
   if (!m || !Array.isArray(m.nodes) || !m.nodes.length || !Array.isArray(m.edges)) throw new Error(`${src} is not a reasoning map: it needs "nodes" and "edges"`);
   m.id = String(m.id || src); m.title = m.title || m.id;
+  const ids = new Set(m.nodes.map(n => n.id)), dangling = m.edges.filter(e => !ids.has(e.from) || !ids.has(e.to)).length;
+  if (dangling) console.warn(`${src}: ${dangling} arrow(s) point at nodes that do not exist and are not drawn; run a validator`);
   const i = MODELS.findIndex(x => x.id === m.id); if (i >= 0) MODELS[i] = m; else MODELS.push(m);
   $('model').innerHTML = MODELS.map(x => `<option value="${esc(x.id)}">${esc(x.title)}</option>`).join('');
   return m.id;
@@ -503,7 +505,8 @@ function renderPanel() {
   if (!S.selected || !t.byId.has(S.selected)) { panel.classList.add('empty'); $('detail').innerHTML = EMPTY; return; }
   panel.classList.remove('empty');
   const n = t.byId.get(S.selected), kids = (t.kids.get(n.id) || []).filter(k => !t.byId.get(k).of), sub = subtree(t, n.id);
-  const outs = S.model.edges.filter(e => sub.has(e.from) !== sub.has(e.to));
+  // an arrow to a node that does not exist is a validator's finding, not a reason to crash the panel
+  const outs = S.model.edges.filter(e => t.byId.has(e.from) && t.byId.has(e.to) && sub.has(e.from) !== sub.has(e.to));
   const link = (id, lab, e) => `<li><button type="button" data-f="${esc(id)}">${esc(t.byId.get(id).label)}</button>${lab ? ` <span class="lab">${esc(lab)}</span>` : ''}${e && e.inference ? ` <span class="inf">${esc(e.inference)}${e.combines === 'multiply' ? ' · multiplies' : ''}</span>` : ''}${e && (e.strength || e.confidence) ? `<span class="note">${e.strength ? 'Strength if true: ' + esc(e.strength) + '. ' : ''}${e.confidence ? 'Confidence: ' + esc(e.confidence) + '.' : ''}</span>` : ''}${e && e.given ? `<span class="note">Given: ${esc(e.given)}</span>` : ''}${e && e.note ? `<span class="note">${esc(e.note)}</span>` : ''}</li>`;
   const path = ancestors(t, n.id).reverse().slice(1).map(a => t.byId.get(a).label).join(' › ');
   const ev = side => (n[side] || []).length ? `<div class="ev ${side}"><h3>${side === 'for' ? 'Evidence for' : 'Evidence against'}</h3><ul>${n[side].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : '';
@@ -554,7 +557,8 @@ $('zfit').onclick = () => bounds && fitTo(bounds, 1.1, 28, true);
 /* ---------- boot ---------- */
 (async () => {
   const urls = new URLSearchParams(location.search).getAll('map'), errs = [];
-  const list = urls.length ? urls : DEFAULT_MAPS;
+  // opened straight from disk, the browser blocks fetching the examples; go to the open-a-file state instead of logging errors
+  const list = urls.length ? urls : location.protocol === 'file:' ? [] : DEFAULT_MAPS;
   const got = await Promise.all(list.map(u => fetch(u).then(r => { if (!r.ok) throw new Error(`${u}: ${r.status}`); return r.json(); }).catch(e => e)));
   got.forEach((m, i) => { try { if (m instanceof Error) throw m; addMap(m, list[i]); } catch (e) { errs.push(e.message); } });
   await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]);

@@ -14,10 +14,10 @@
   {"id": "b", "label": "Outcome B", "kind": "outcome"}
  ],
  "edges": [
-  {"from": "a", "to": "b", "label": "deductive", "inference": "deductive", "given": "Premise 1; premise 2.", "strength": "large", "confidence": "well-supported", "note": "A deduction's confidence is its premises' confidence."},
-  {"from": "c1", "to": "c2", "label": "inductive", "inference": "inductive", "strength": "medium", "confidence": "suggestive"},
-  {"from": "c2", "to": "b", "label": "abductive", "inference": "abductive", "combines": "multiply", "strength": "large", "confidence": "contested", "note": "The rival explanations go here."},
-  {"from": "d", "to": "b", "label": "identity", "inference": "deductive", "given": "The definition of D.", "confidence": "established", "note": "An identity gets a confidence and no strength."},
+  {"from": "a", "to": "b", "label": "drives", "inference": "deductive", "given": "Premise 1; premise 2.", "strength": "large", "confidence": "well-supported", "note": "A deduction's confidence is its premises' confidence."},
+  {"from": "c1", "to": "c2", "label": "builds up", "inference": "inductive", "strength": "medium", "confidence": "suggestive"},
+  {"from": "c2", "to": "b", "label": "best explains", "inference": "abductive", "combines": "multiply", "strength": "large", "confidence": "contested", "note": "The rival explanations go here."},
+  {"from": "d", "to": "b", "label": "defines", "inference": "deductive", "given": "The definition of D.", "confidence": "established", "note": "An identity gets a confidence and no strength."},
   {"from": "e", "to": "b", "label": "dampens", "type": "dampens", "inference": "causal", "strength": "small", "confidence": "folklore"}
  ]
 }

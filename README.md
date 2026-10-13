@@ -38,10 +38,11 @@ Profiles only add fields, so a tool that knows only the core can still open any 
 
 ## Thinking with a language model
 
-**[skills/](skills/)** has two agent skills to copy into your own setup:
+**[skills/](skills/)** has three agent skills to copy into your own setup:
 
 - **reasoning-map** takes a question and builds a map: an issue tree that is mutually exclusive and collectively exhaustive, branches turned into claims that can be wrong, typed and graded arrows, evidence, falsifiers. It ends with where the answer actually rests.
 - **devils-advocate** attacks an existing map as a sceptic would, asking not just "is anything missing?" but "is this collectively convincing?". Run it on its own, now and then, on any map, and especially on the ones you like.
+- **compare-maps** takes two maps of the same question, built by two people, and finds the crux: the one link or premise their disagreement actually rests on, which kind of disagreement it is (how much, whether, or a value), and the observation that would settle it. Most arguments turn out to be about something upstream that neither side had said out loud.
 
 The intended loop: build the map, research the links that are not deductive until the grades are earned, run the devil's advocate, revise, and keep the file. Each pass through that loop is a chance to notice you were wrong, which is the point.
 

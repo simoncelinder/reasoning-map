@@ -56,7 +56,15 @@ The protocol is JSON and JSON Schema; any language can read, write and validate 
 ## Examples and viewer
 
 - **[examples/](examples/)**: `template.json`, every field once with placeholders, to copy, and one worked example: what ended the dinosaurs. It needs every part of the format, from a deduction that is still uncertain to a piece of folklore.
-- **[viewer/](viewer/)**: one example renderer, a single HTML file. Run `python3 -m http.server` in the repo root and open http://localhost:8000/viewer/. It is fully detached from the format: any other renderer can read the same files.
+- **[viewer/](viewer/)**: one example renderer, a single HTML file. It is fully detached from the format: any other renderer can read the same files. To see the dinosaur example drawn:
+
+```
+git clone https://github.com/simoncelinder/reasoning-map
+cd reasoning-map
+python3 -m http.server
+```
+
+Then open [http://localhost:8000/viewer/](http://localhost:8000/viewer/).
 
 ## What is not here
 

@@ -7,10 +7,11 @@ One example renderer for the protocol. A single HTML file: it reads map files an
 ## Open it
 
 ```
-python3 -m http.server        # from the repo root
+cd reasoning-map             # the repo root
+python3 -m http.server
 ```
 
-Then open http://localhost:8000/viewer/. It loads the files in [examples/](../examples/). Other ways in:
+Then open [http://localhost:8000/viewer/](http://localhost:8000/viewer/). It loads the files in [examples/](../examples/). Other ways in:
 
 - `viewer/?map=URL` loads any map by URL; repeat `map=` for several.
 - **Open file**, or drag a `.json` file onto the canvas. This also works when `index.html` is opened straight from disk, where browsers block loading the examples.

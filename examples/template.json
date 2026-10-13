@@ -2,10 +2,12 @@
  "id": "template",
  "title": "Template: every field once",
  "core": "One or two sentences: the central claim of the map.",
+ "domain": "The field the question belongs to.",
+ "status": "Draft, reviewed, or whatever stage the map is at.",
  "profiles": ["reasoning", "grades"],
  "nodes": [
   {"id": "root", "label": "Central claim", "kind": "claim", "text": "The first node is the root: the map itself. A node without a parent sits under it."},
-  {"id": "a", "label": "Cause A", "sub": "A second line", "kind": "driver", "weight": "High", "for": ["Evidence 1", "Evidence 2"], "against": ["Evidence 3"], "falsifier": "The observation that would show A does not drive B."},
+  {"id": "a", "label": "Cause A", "sub": "A second line", "kind": "driver", "weight": "High", "confidence": "Free text on a claim; arrows use the graded field.", "ref": "Where this comes from: a section of a source, a URL.", "for": ["Evidence 1", "Evidence 2"], "against": ["Evidence 3"], "falsifier": "The observation that would show A does not drive B."},
   {"id": "c", "label": "Group C", "kind": "group"},
   {"id": "c1", "label": "Part C1", "parent": "c", "kind": "part", "for": ["Case 1", "Case 2", "Case 3"], "against": ["Counter-case 1"]},
   {"id": "c2", "label": "Part C2", "parent": "c", "kind": "mechanism"},

@@ -46,6 +46,7 @@ Planned: a mocked research run on the example.
 
 ## Conventions
 
+- **Never commit or push without asking first.** The repo is public, so a push publishes. Make the edit, show the diff, and wait for an explicit go-ahead for that change.
 - Validator tests use abstract fixtures only (see validators/python/test_reasoning_map.py).
 - Run `python3 -m unittest discover validators/python` before committing a change to the protocol or the validator, and validate the examples (`python3 validators/python/reasoning_map.py examples/*.json`).
 - The viewer never gets a feature that requires a field the protocol does not define. If it needs one, the protocol changes first.
